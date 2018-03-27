@@ -1,12 +1,9 @@
 import React, { Component } from "react";
 import Accident from "./Accident";
 import AccidentForm from "./AccidentForm";
-import { Link } from "react-router-dom";
 import PaginationController from "./Pagination";
 import Header from "./Header";
 import Navigation from "./NavBar";
-import "../App.css";
-import axios from "axios";
 
 class HomeComponent extends Component {
   constructor(props) {

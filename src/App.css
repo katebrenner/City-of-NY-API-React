@@ -28,6 +28,12 @@ body {
   border: 1px solid black;
 }
 
+.navBar {
+  position: fixed;
+  width: 100%;
+  top: -15px;
+}
+
 #paginationController {
   display: grid;
   grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
@@ -35,4 +41,10 @@ body {
   text-align: center;
   border: 1px solid grey;
   margin: 0 auto;
+}
+
+.header {
+  border: 1px solid black;
+  text-align: center;
+  margin-bottom: 50px;
 }

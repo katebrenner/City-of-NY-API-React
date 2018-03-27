@@ -1,14 +1,21 @@
 import React, { Component } from "react";
 import { Link } from "react-router-dom";
+import { Menu } from "semantic-ui-react";
+
 class Navigation extends Component {
-  state = {};
   render() {
     return (
-      <div>
-        <Link to="/">Home</Link>
-        <Link to="/Flagged">Flagged Items</Link>
-        <Link to="/Map">Map</Link>
-      </div>
+      <Menu className="navBar">
+        <Link to="/">
+          <Menu.Item>Home</Menu.Item>
+        </Link>
+        <Link to="/Flagged">
+          <Menu.Item>Flagged Items</Menu.Item>
+        </Link>
+        <Link to="/Map">
+          <Menu.Item>Map</Menu.Item>
+        </Link>
+      </Menu>
     );
   }
 }
