@@ -1,8 +1,10 @@
 import React, { Component } from "react";
-import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
+import { BrowserRouter as Router, Switch, Route, Link } from "react-router-dom";
 import axios from "axios";
 import Home from "./components/Home";
 import Flagged from "./components/Flagged";
+import Map from "./components/Map";
+import Navigation from "./components/NavBar";
 
 class App extends Component {
   state = {
@@ -69,11 +71,13 @@ class App extends Component {
   render() {
     const HomeComponent = () => <Home accidents={this.state.accidents} flagAccident={this.flagAccident} />;
     const FlaggedItems = () => <Flagged Flagged={this.state.flagged} removeFromFlag={this.removeFromFlag} />;
+    const MapComponent = () => <Map />;
     return (
       <Router>
         <Switch>
           <Route exact path="/" render={HomeComponent} />
           <Route exact path="/Flagged" render={FlaggedItems} />
+          <Route exact path="/Map" render={MapComponent} />
         </Switch>
       </Router>
     );

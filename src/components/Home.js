@@ -2,7 +2,9 @@ import React, { Component } from "react";
 import Accident from "./Accident";
 import AccidentForm from "./AccidentForm";
 import { Link } from "react-router-dom";
-import PaginationExampleShorthand from "./Pagination";
+import PaginationController from "./Pagination";
+import Header from "./Header";
+import Navigation from "./NavBar";
 import "../App.css";
 import axios from "axios";
 
@@ -62,8 +64,8 @@ class HomeComponent extends Component {
     const currentAccidents = this.props.accidents.slice(firstIndex, lastIndex);
     return (
       <div>
-        Home component
-        <Link to="/Flagged">Flagged Items</Link>
+        <Header />
+        <Navigation />
         {/* <PaginationExampleCustomization /> */}
         {this.state.form ? (
           <AccidentForm
@@ -99,19 +101,13 @@ class HomeComponent extends Component {
             );
           })}
         </div>
-        <div id="paginationController">
-          <div onClick={() => this.jumpPagination(1)}>1</div>
-          <button value="last" onClick={this.handlePageChange}>
-            last
-          </button>
-          <div>{this.state.currentPage}</div>
-          <button value="next" onClick={this.handlePageChange}>
-            Next
-          </button>
-          <div onClick={() => this.jumpPagination(Math.floor(this.props.accidents.length / this.state.itemsPerPage))}>
-            {Math.floor(this.props.accidents.length / this.state.itemsPerPage)}
-          </div>
-        </div>
+        <PaginationController
+          handlePageChange={this.handlePageChange}
+          jumpPagination={this.jumpPagination}
+          currentPage={this.state.currentPage}
+          itemsPerPage={this.state.itemsPerPage}
+          accidents={this.props.accidents}
+        />
       </div>
     );
   }
