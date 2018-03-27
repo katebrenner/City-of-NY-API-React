@@ -30,7 +30,6 @@ class HomeComponent extends Component {
       this.setState({ currentPage: this.state.currentPage - 1 });
     }
   };
-
   jumpPagination = value => {
     this.setState({
       currentPage: value
@@ -47,12 +46,16 @@ class HomeComponent extends Component {
       longitude: object.longitude
     });
   };
-
   handleChange = event => {
     this.setState({
       notes: event.target.value
     });
     console.log(this.state.notes);
+  };
+  closeForm = () => {
+    this.setState({
+      form: false
+    });
   };
 
   render() {
@@ -76,6 +79,7 @@ class HomeComponent extends Component {
             notes={this.state.notes}
             handleChange={this.handleChange}
             flagAccident={this.props.flagAccident}
+            closeForm={this.closeForm}
           />
         ) : (
           ""

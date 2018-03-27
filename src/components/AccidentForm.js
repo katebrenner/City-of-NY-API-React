@@ -20,6 +20,9 @@ class AccidentForm extends Component {
     return (
       <div className="form">
         <form>
+          <button onClick={() => this.props.closeForm}>
+            <i className="fas fa-window-close" />
+          </button>
           <label htmlFor="date">Date </label>
           <input name="date" type="text" value={this.props.date} />
           <label htmlFor="time">time</label>
