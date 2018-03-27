@@ -30,7 +30,6 @@ class App extends Component {
       console.log("Error retrieving flagged accidents!");
       console.log(error);
     }
-    console.log(this.state.flagged);
   }
 
   flagAccident = async (newAccident, index) => {
@@ -71,7 +70,7 @@ class App extends Component {
   render() {
     const HomeComponent = () => <Home accidents={this.state.accidents} flagAccident={this.flagAccident} />;
     const FlaggedItems = () => <Flagged Flagged={this.state.flagged} removeFromFlag={this.removeFromFlag} />;
-    const MapComponent = () => <Map />;
+    const MapComponent = () => <Map accidents={this.state.accidents} />;
     return (
       <Router>
         <Switch>
