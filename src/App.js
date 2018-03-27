@@ -1,10 +1,10 @@
 import React, { Component } from "react";
-import { BrowserRouter as Router, Switch, Route, Link } from "react-router-dom";
+import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import axios from "axios";
 import Home from "./components/Home";
 import Flagged from "./components/Flagged";
 import Map from "./components/Map";
-import Navigation from "./components/NavBar";
+import "./App.css";
 
 class App extends Component {
   state = {
