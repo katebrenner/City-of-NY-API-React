@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 
-class Form extends Component {
+class AccidentForm extends Component {
   state = {};
   handleSubmit = event => {
     event.preventDefault();
@@ -41,4 +41,4 @@ class Form extends Component {
   }
 }
 
-export default Form;
+export default AccidentForm;

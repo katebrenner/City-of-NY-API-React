@@ -16,7 +16,7 @@ class App extends Component {
       this.setState({ accidents: response.data });
       console.log(response.data);
     } catch (error) {
-      console.log("Error retrieving data!");
+      console.log("Error retrieving NYC data!");
       console.log(error);
     }
     try {
@@ -25,7 +25,7 @@ class App extends Component {
         flagged: response.data
       });
     } catch (error) {
-      console.log("Error retrieving ideas!");
+      console.log("Error retrieving flagged accidents!");
       console.log(error);
     }
     console.log(this.state.flagged);
@@ -41,7 +41,7 @@ class App extends Component {
       console.log("Newaccident", newAccident);
       console.log("updatedFlaggedList", updatedFlaggedList);
     } catch (error) {
-      console.log("Error !!!!! no!!!");
+      console.log("Error posting an accident");
       console.log(error);
     }
   };

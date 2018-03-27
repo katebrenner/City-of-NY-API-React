@@ -1,7 +1,8 @@
 import React, { Component } from "react";
 import Accident from "./Accident";
-import Form from "./Form";
+import AccidentForm from "./AccidentForm";
 import { Link } from "react-router-dom";
+import PaginationExampleShorthand from "./Pagination";
 import "../App.css";
 import axios from "axios";
 
@@ -10,6 +11,8 @@ class HomeComponent extends Component {
     super(props);
     this.state = {
       form: false,
+      currentPage: 1,
+      itemsPerPage: 9,
       date: "",
       time: "",
       borough: "",
@@ -21,7 +24,19 @@ class HomeComponent extends Component {
     this.confirmAccident = this.confirmAccident.bind(this);
     this.handleChange = this.handleChange.bind(this);
   }
+  handlePageChange = event => {
+    if (event.target.value === "next") {
+      this.setState({ currentPage: this.state.currentPage + 1 });
+    } else if (event.target.value === "last") {
+      this.setState({ currentPage: this.state.currentPage - 1 });
+    }
+  };
 
+  jumpPagination = value => {
+    this.setState({
+      currentPage: value
+    });
+  };
   confirmAccident = object => {
     this.setState({
       form: true,
@@ -42,12 +57,16 @@ class HomeComponent extends Component {
   };
 
   render() {
+    const lastIndex = this.state.currentPage * this.state.itemsPerPage;
+    const firstIndex = lastIndex - this.state.itemsPerPage;
+    const currentAccidents = this.props.accidents.slice(firstIndex, lastIndex);
     return (
       <div>
         Home component
         <Link to="/Flagged">Flagged Items</Link>
-        {this.state.date ? (
-          <Form
+        {/* <PaginationExampleCustomization /> */}
+        {this.state.form ? (
+          <AccidentForm
             className="form"
             date={this.state.date}
             time={this.state.time}
@@ -63,7 +82,7 @@ class HomeComponent extends Component {
           ""
         )}
         <div className="grid">
-          {this.props.accidents.map((response, index) => {
+          {currentAccidents.map((response, index) => {
             return (
               <Accident
                 key={index}
@@ -79,6 +98,19 @@ class HomeComponent extends Component {
               />
             );
           })}
+        </div>
+        <div id="paginationController">
+          <div onClick={() => this.jumpPagination(1)}>1</div>
+          <button value="last" onClick={this.handlePageChange}>
+            last
+          </button>
+          <div>{this.state.currentPage}</div>
+          <button value="next" onClick={this.handlePageChange}>
+            Next
+          </button>
+          <div onClick={() => this.jumpPagination(Math.floor(this.props.accidents.length / this.state.itemsPerPage))}>
+            {Math.floor(this.props.accidents.length / this.state.itemsPerPage)}
+          </div>
         </div>
       </div>
     );
