@@ -27,3 +27,12 @@ body {
   margin: 0 auto;
   border: 1px solid black;
 }
+
+#paginationController {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
+  width: 50%;
+  text-align: center;
+  border: 1px solid grey;
+  margin: 0 auto;
+}
