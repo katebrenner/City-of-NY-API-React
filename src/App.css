@@ -1,0 +1,29 @@
+body {
+  /* background-color: blue; */
+}
+.accident {
+  border: 2px solid black;
+  display: inline-block;
+  box-shadow: 10px 10px 5px grey;
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  grid-gap: 20px 5%;
+  width: 80%;
+  margin: 0 auto;
+}
+
+.form {
+  position: fixed;
+  top: calc(50% - 300px);
+  left: calc(50% - 200px);
+  z-index: 1;
+  background-color: white;
+  text-align: center;
+  width: 400px;
+  height: 600px;
+  margin: 0 auto;
+  border: 1px solid black;
+}
