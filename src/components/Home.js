@@ -18,6 +18,8 @@ class HomeComponent extends Component {
       zip_code: "",
       latitude: "",
       longitude: "",
+      number_of_persons_injured: "",
+      number_of_persons_killed: "",
       notes: ""
     };
     this.confirmAccident = this.confirmAccident.bind(this);
@@ -43,7 +45,9 @@ class HomeComponent extends Component {
       borough: object.borough,
       zip_code: object.zip_code,
       latitude: object.latitude,
-      longitude: object.longitude
+      longitude: object.longitude,
+      number_of_persons_injured: object.number_of_persons_injured,
+      number_of_persons_killed: object.number_of_persons_killed
     });
   };
   handleChange = event => {
@@ -62,8 +66,9 @@ class HomeComponent extends Component {
     const lastIndex = this.state.currentPage * this.state.itemsPerPage;
     const firstIndex = lastIndex - this.state.itemsPerPage;
     const currentAccidents = this.props.accidents.slice(firstIndex, lastIndex);
+    const backGround = this.state.form ? "blur" : "nonblur";
     return (
-      <div>
+      <div className={backGround}>
         <Header />
         <Navigation />
         {/* <PaginationExampleCustomization /> */}
@@ -76,6 +81,8 @@ class HomeComponent extends Component {
             zip_code={this.state.zip_code}
             latitude={this.state.latitude}
             longitude={this.state.longitude}
+            number_of_persons_injured={this.state.number_of_persons_injured}
+            number_of_persons_killed={this.state.number_of_persons_killed}
             notes={this.state.notes}
             handleChange={this.handleChange}
             flagAccident={this.props.flagAccident}
@@ -94,6 +101,8 @@ class HomeComponent extends Component {
                 latitude={response.latitude}
                 longitude={response.longitude}
                 date={response.date}
+                number_of_persons_injured={response.number_of_persons_injured}
+                number_of_persons_killed={response.number_of_persons_killed}
                 contributing_factor_vehicle_1={response.contributing_factor_vehicle_1}
                 on_street_name={response.on_street_name}
                 confirmAccident={this.confirmAccident}

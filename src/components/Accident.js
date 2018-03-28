@@ -9,7 +9,10 @@ class Accident extends Component {
         <p>{this.props.on_street_name}</p>
         <p>{this.props.latitude}</p>
         <p>{this.props.longitude}</p>
-        <p>{this.props.notes}</p>
+        <p>injuries: {this.props.number_of_persons_injured}</p>
+        <p>fatilites: {this.props.number_of_persons_killed}</p>
+        {this.props.notes ? <p>notes:{this.props.notes}</p> : ""}
+
         {this.props.confirmAccident ? (
           <button onClick={() => this.props.confirmAccident(this.props.accidents[this.props.index])}>
             flag this accident
