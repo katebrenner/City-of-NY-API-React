@@ -9,7 +9,19 @@ import "./App.css";
 class App extends Component {
   state = {
     accidents: [],
-    flagged: []
+    flagged: [],
+    form: false,
+    currentPage: 1,
+    itemsPerPage: 9,
+    date: "",
+    time: "",
+    borough: "",
+    zip_code: "",
+    latitude: "",
+    longitude: "",
+    number_of_persons_injured: "",
+    number_of_persons_killed: "",
+    notes: ""
   };
 
   async componentDidMount() {
@@ -59,17 +71,89 @@ class App extends Component {
     }
   };
 
-  // updateFood = async index => {
-  //   try {
-  //     const foodToUpate = this.state.foods[index];
-  //     await axios.patch(`/foods/${foodToUpate.id}`, foodToUpate);
-  //   } catch (error) {
-  //     console.log("Error updating food!");
-  //     console.log(error);
-  //   }
+  updateNote = async index => {
+    try {
+      const flaggedToUpdate = this.state.flagged[index];
+      await axios.patch(`/foods/${flaggedToUpdate.id}`, flaggedToUpdate);
+    } catch (error) {
+      console.log("Error updating item!");
+      console.log(error);
+    }
+  };
+
+  handlePageChange = event => {
+    if (event.target.value === "next") {
+      this.setState({ currentPage: this.state.currentPage + 1 });
+    } else if (event.target.value === "last") {
+      this.setState({ currentPage: this.state.currentPage - 1 });
+    }
+  };
+  jumpPagination = value => {
+    this.setState({
+      currentPage: value
+    });
+  };
+  confirmAccident = object => {
+    this.setState({
+      form: true,
+      date: object.date,
+      time: object.time,
+      borough: object.borough,
+      zip_code: object.zip_code,
+      latitude: object.latitude,
+      longitude: object.longitude,
+      number_of_persons_injured: object.number_of_persons_injured,
+      number_of_persons_killed: object.number_of_persons_killed
+    });
+    console.log("inside flag accdient" + object.date);
+  };
+
+  handleChange = event => {
+    this.setState({
+      notes: event.target.value
+    });
+    console.log(this.state.notes);
+  };
+  handleSubmit = event => {
+    event.preventDefault();
+    console.log("inside handlesubmit");
+    const newAccident = {
+      date: this.state.date,
+      time: this.state.time,
+      borough: this.state.borough,
+      zip_code: this.state.zip_code,
+      latitude: this.state.latitude,
+      longitude: this.state.longitude,
+      number_of_persons_injured: this.state.number_of_persons_injured,
+      number_of_persons_killed: this.state.number_of_persons_killed,
+      notes: this.state.notes
+    };
+    this.flagAccident(newAccident);
+  };
+  closeForm = () => {
+    this.setState({
+      form: false
+    });
+  };
   render() {
-    const HomeComponent = () => <Home accidents={this.state.accidents} flagAccident={this.flagAccident} />;
-    const FlaggedItems = () => <Flagged Flagged={this.state.flagged} removeFromFlag={this.removeFromFlag} />;
+    const HomeComponent = () => (
+      <Home
+        state={this.state}
+        flagAccident={this.flagAccident}
+        confirmAccident={this.confirmAccident}
+        handleChange={this.handleChange}
+        handleSubmit={this.handleSubmit}
+      />
+    );
+    const FlaggedItems = () => (
+      <Flagged
+        state={this.state}
+        removeFromFlag={this.removeFromFlag}
+        updateNote={this.updateNote}
+        handleChange={this.handleChange}
+        confirmAccident={this.confirmAccident}
+      />
+    );
     const MapComponent = () => <Map accidents={this.state.accidents} />;
     return (
       <Router>

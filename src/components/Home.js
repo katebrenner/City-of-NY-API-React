@@ -8,85 +8,35 @@ import Navigation from "./NavBar";
 class HomeComponent extends Component {
   constructor(props) {
     super(props);
-    this.state = {
-      form: false,
-      currentPage: 1,
-      itemsPerPage: 9,
-      date: "",
-      time: "",
-      borough: "",
-      zip_code: "",
-      latitude: "",
-      longitude: "",
-      number_of_persons_injured: "",
-      number_of_persons_killed: "",
-      notes: ""
-    };
-    this.confirmAccident = this.confirmAccident.bind(this);
-    this.handleChange = this.handleChange.bind(this);
+    this.state = {};
   }
-  handlePageChange = event => {
-    if (event.target.value === "next") {
-      this.setState({ currentPage: this.state.currentPage + 1 });
-    } else if (event.target.value === "last") {
-      this.setState({ currentPage: this.state.currentPage - 1 });
-    }
-  };
-  jumpPagination = value => {
-    this.setState({
-      currentPage: value
-    });
-  };
-  confirmAccident = object => {
-    this.setState({
-      form: true,
-      date: object.date,
-      time: object.time,
-      borough: object.borough,
-      zip_code: object.zip_code,
-      latitude: object.latitude,
-      longitude: object.longitude,
-      number_of_persons_injured: object.number_of_persons_injured,
-      number_of_persons_killed: object.number_of_persons_killed
-    });
-  };
-  handleChange = event => {
-    this.setState({
-      notes: event.target.value
-    });
-    console.log(this.state.notes);
-  };
-  closeForm = () => {
-    this.setState({
-      form: false
-    });
-  };
 
   render() {
-    const lastIndex = this.state.currentPage * this.state.itemsPerPage;
-    const firstIndex = lastIndex - this.state.itemsPerPage;
-    const currentAccidents = this.props.accidents.slice(firstIndex, lastIndex);
-    const backGround = this.state.form ? "blur" : "nonblur";
+    const lastIndex = this.props.state.currentPage * this.props.state.itemsPerPage;
+    const firstIndex = lastIndex - this.props.state.itemsPerPage;
+    const currentAccidents = this.props.state.accidents.slice(firstIndex, lastIndex);
+    const backGround = this.props.form ? "blur" : "nonblur";
     return (
       <div className={backGround}>
         <Header />
         <Navigation />
         {/* <PaginationExampleCustomization /> */}
-        {this.state.form ? (
+        {this.props.state.form ? (
           <AccidentForm
             className="form"
-            date={this.state.date}
-            time={this.state.time}
-            borough={this.state.time}
-            zip_code={this.state.zip_code}
-            latitude={this.state.latitude}
-            longitude={this.state.longitude}
-            number_of_persons_injured={this.state.number_of_persons_injured}
-            number_of_persons_killed={this.state.number_of_persons_killed}
-            notes={this.state.notes}
-            handleChange={this.handleChange}
+            date={this.props.state.date}
+            time={this.props.state.time}
+            borough={this.props.state.borough}
+            zip_code={this.props.state.zip_code}
+            latitude={this.props.state.latitude}
+            longitude={this.props.state.longitude}
+            number_of_persons_injured={this.props.state.number_of_persons_injured}
+            number_of_persons_killed={this.props.state.number_of_persons_killed}
+            notes={this.props.state.notes}
+            handleChange={this.props.handleChange}
             flagAccident={this.props.flagAccident}
-            closeForm={this.closeForm}
+            closeForm={this.props.closeForm}
+            handleSubmit={this.props.handleSubmit}
           />
         ) : (
           ""
@@ -105,18 +55,19 @@ class HomeComponent extends Component {
                 number_of_persons_killed={response.number_of_persons_killed}
                 contributing_factor_vehicle_1={response.contributing_factor_vehicle_1}
                 on_street_name={response.on_street_name}
-                confirmAccident={this.confirmAccident}
-                accidents={this.props.accidents}
+                confirmAccident={this.props.confirmAccident}
+                accidents={this.props.state.accidents}
+                showform={this.props.showform}
               />
             );
           })}
         </div>
         <PaginationController
-          handlePageChange={this.handlePageChange}
-          jumpPagination={this.jumpPagination}
-          currentPage={this.state.currentPage}
-          itemsPerPage={this.state.itemsPerPage}
-          accidents={this.props.accidents}
+          handlePageChange={this.props.handlePageChange}
+          jumpPagination={this.props.jumpPagination}
+          currentPage={this.props.state.currentPage}
+          itemsPerPage={this.props.state.itemsPerPage}
+          accidents={this.props.state.accidents}
         />
       </div>
     );

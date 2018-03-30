@@ -2,28 +2,10 @@ import React, { Component } from "react";
 import { Redirect } from "react-router-dom";
 
 class AccidentForm extends Component {
-  state = {
-    redirect: true
-  };
-
-  handleSubmit = event => {
-    event.preventDefault();
-    const newAccident = {
-      date: this.props.date,
-      time: this.props.time,
-      borough: this.props.borough,
-      zip_code: this.props.zip_code,
-      latitude: this.props.latitude,
-      longitude: this.props.longitude,
-      number_of_persons_injured: this.props.number_of_persons_injured,
-      number_of_persons_killed: this.props.number_of_persons_killed,
-      notes: this.props.notes
-    };
-    this.props.flagAccident(newAccident);
-  };
+  state = {};
 
   render() {
-    console.log("injury:", this.props.injuryNo);
+    console.log("injury:", this.props.number_of_persons_injured);
     console.log("death:", this.props.number_of_persons_killed);
     return (
       <div className="form">
@@ -53,7 +35,11 @@ class AccidentForm extends Component {
             Add Notes:
           </label>
           <textarea className="inline-block textarea" name="notes" type="textarea" onChange={this.props.handleChange} />
-          <input type="submit" value="Save" onClick={this.handleSubmit} />
+          {this.props.updateFlagged ? (
+            <input type="submit" value="update" onClick={this.props.updateNote(this.props.index)} />
+          ) : (
+            <input type="submit" value="Save" onClick={this.props.handleSubmit} />
+          )}
         </form>
       </div>
     );
