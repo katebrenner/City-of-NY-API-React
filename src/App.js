@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
+import { BrowserRouter as Router, Switch, Route, Redirect } from "react-router-dom";
 import axios from "axios";
 import Home from "./components/Home";
 import Flagged from "./components/Flagged";
@@ -13,6 +13,7 @@ class App extends Component {
     form: false,
     currentPage: 1,
     itemsPerPage: 9,
+    id: "",
     date: "",
     time: "",
     borough: "",
@@ -71,10 +72,10 @@ class App extends Component {
     }
   };
 
-  updateNote = async index => {
+  updateNote = async (newAccident, id) => {
     try {
-      const flaggedToUpdate = this.state.flagged[index];
-      await axios.patch(`/foods/${flaggedToUpdate.id}`, flaggedToUpdate);
+      await axios.patch(`/accidents/${id}`, newAccident);
+      console.log("after .patch statement");
     } catch (error) {
       console.log("Error updating item!");
       console.log(error);
@@ -108,6 +109,22 @@ class App extends Component {
     console.log("inside flag accdient" + object.date);
   };
 
+  confirmAccidentForUpdate = object => {
+    this.setState({
+      form: true,
+      id: object.id,
+      date: object.date,
+      time: object.time,
+      borough: object.borough,
+      zip_code: object.zip_code,
+      latitude: object.latitude,
+      longitude: object.longitude,
+      number_of_persons_injured: object.number_of_persons_injured,
+      number_of_persons_killed: object.number_of_persons_killed
+    });
+    console.log(object.id);
+  };
+
   handleChange = event => {
     this.setState({
       notes: event.target.value
@@ -118,6 +135,7 @@ class App extends Component {
     event.preventDefault();
     console.log("inside handlesubmit");
     const newAccident = {
+      id: this.state.id,
       date: this.state.date,
       time: this.state.time,
       borough: this.state.borough,
@@ -129,6 +147,24 @@ class App extends Component {
       notes: this.state.notes
     };
     this.flagAccident(newAccident);
+  };
+
+  handleUpdate = event => {
+    event.preventDefault();
+    console.log("inside handleUpdate");
+    const newAccident = {
+      id: this.state.id,
+      date: this.state.date,
+      time: this.state.time,
+      borough: this.state.borough,
+      zip_code: this.state.zip_code,
+      latitude: this.state.latitude,
+      longitude: this.state.longitude,
+      number_of_persons_injured: this.state.number_of_persons_injured,
+      number_of_persons_killed: this.state.number_of_persons_killed,
+      notes: this.state.notes
+    };
+    this.updateNote(newAccident, this.state.id);
   };
   closeForm = () => {
     this.setState({
@@ -143,6 +179,10 @@ class App extends Component {
         confirmAccident={this.confirmAccident}
         handleChange={this.handleChange}
         handleSubmit={this.handleSubmit}
+        currentPage={this.state.currentPage}
+        itemsPerPage={this.state.itemsPerPage}
+        jumpPagination={this.jumpPagination}
+        handlePageChange={this.handlePageChange}
       />
     );
     const FlaggedItems = () => (
@@ -151,7 +191,8 @@ class App extends Component {
         removeFromFlag={this.removeFromFlag}
         updateNote={this.updateNote}
         handleChange={this.handleChange}
-        confirmAccident={this.confirmAccident}
+        confirmAccidentForUpdate={this.confirmAccidentForUpdate}
+        handleUpdate={this.handleUpdate}
       />
     );
     const MapComponent = () => <Map accidents={this.state.accidents} />;

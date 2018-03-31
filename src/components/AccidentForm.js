@@ -1,5 +1,4 @@
 import React, { Component } from "react";
-import { Redirect } from "react-router-dom";
 
 class AccidentForm extends Component {
   state = {};
@@ -35,8 +34,8 @@ class AccidentForm extends Component {
             Add Notes:
           </label>
           <textarea className="inline-block textarea" name="notes" type="textarea" onChange={this.props.handleChange} />
-          {this.props.updateFlagged ? (
-            <input type="submit" value="update" onClick={this.props.updateNote(this.props.index)} />
+          {this.props.handleUpdate ? (
+            <input type="submit" value="update" onClick={this.props.handleUpdate} />
           ) : (
             <input type="submit" value="Save" onClick={this.props.handleSubmit} />
           )}
