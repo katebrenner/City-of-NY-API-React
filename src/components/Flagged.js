@@ -40,8 +40,8 @@ class Flagged extends Component {
           {this.props.state.flagged.map((flagged, index) => {
             return (
               <Accident
-                key={index}
-                index={index}
+                key={flagged.id}
+                index={flagged.id}
                 className="accident"
                 latitude={flagged.latitude}
                 longitude={flagged.longitude}

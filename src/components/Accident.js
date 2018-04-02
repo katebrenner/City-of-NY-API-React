@@ -12,7 +12,6 @@ class Accident extends Component {
         <p>injuries: {this.props.number_of_persons_injured}</p>
         <p>fatilites: {this.props.number_of_persons_killed}</p>
         {this.props.notes ? <p>notes: {this.props.notes}</p> : ""}
-
         {this.props.confirmUpdate ? (
           <div>
             <button onClick={() => this.props.removeFromFlag(this.props.id)}>delete</button>
