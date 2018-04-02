@@ -8,6 +8,7 @@ import "./App.css";
 
 class App extends Component {
   state = {
+    Redirect: false,
     accidents: [],
     flagged: [],
     form: false,
@@ -54,10 +55,12 @@ class App extends Component {
       this.setState({ flagged: updatedFlaggedList });
       console.log("Newaccident", newAccident);
       console.log("updatedFlaggedList", updatedFlaggedList);
+      this.setState({ redirect: true });
     } catch (error) {
       console.log("Error posting an accident");
       console.log(error);
     }
+    this.setState({ redirect: false, form: false });
   };
 
   removeFromFlag = async (accidentId, index) => {
@@ -171,6 +174,9 @@ class App extends Component {
       form: false
     });
   };
+  changeRedirect = () => {
+    this.setState({ redirect: false });
+  };
   render() {
     const HomeComponent = () => (
       <Home
@@ -193,16 +199,23 @@ class App extends Component {
         handleChange={this.handleChange}
         confirmAccidentForUpdate={this.confirmAccidentForUpdate}
         handleUpdate={this.handleUpdate}
+        changeRedirect={this.changeRedirect}
       />
     );
     const MapComponent = () => <Map accidents={this.state.accidents} />;
     return (
       <Router>
-        <Switch>
-          <Route exact path="/" render={HomeComponent} />
-          <Route exact path="/Flagged" render={FlaggedItems} />
-          <Route exact path="/Map" render={MapComponent} />
-        </Switch>
+        <div>
+          {!this.state.redirect ? (
+            <Switch>
+              <Route exact path="/" render={HomeComponent} />
+              <Route exact path="/Flagged" render={FlaggedItems} />
+              <Route exact path="/Map" render={MapComponent} />
+            </Switch>
+          ) : (
+            <Redirect exact to={{ pathname: "/Flagged" }} render={FlaggedItems} />
+          )}
+        </div>
       </Router>
     );
   }

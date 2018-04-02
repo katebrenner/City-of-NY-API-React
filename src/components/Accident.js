@@ -14,7 +14,7 @@ class Accident extends Component {
         {this.props.notes ? <p>notes: {this.props.notes}</p> : ""}
         {this.props.confirmUpdate ? (
           <div>
-            <button onClick={() => this.props.removeFromFlag(this.props.id)}>delete</button>
+            <button onClick={() => this.props.removeFromFlag(this.props.id, this.props.index)}>delete</button>
             <button
               onClick={() =>
                 this.props.confirmAccidentForUpdate(this.props.flagged[this.props.index], this.props.index)
