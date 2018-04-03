@@ -168,6 +168,7 @@ class App extends Component {
       notes: this.state.notes
     };
     this.updateNote(newAccident, this.state.id);
+    this.closeForm();
   };
   closeForm = () => {
     this.setState({
