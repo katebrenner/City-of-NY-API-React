@@ -4,27 +4,37 @@ import axios from "axios";
 import Home from "./components/Home";
 import Flagged from "./components/Flagged";
 import Map from "./components/Map";
+import Stats from "./components/Stats";
 import "./App.css";
 
 class App extends Component {
-  state = {
-    Redirect: false,
-    accidents: [],
-    flagged: [],
-    form: false,
-    currentPage: 1,
-    itemsPerPage: 9,
-    id: "",
-    date: "",
-    time: "",
-    borough: "",
-    zip_code: "",
-    latitude: "",
-    longitude: "",
-    number_of_persons_injured: "",
-    number_of_persons_killed: "",
-    notes: ""
-  };
+  constructor() {
+    super();
+    this.state = {
+      Redirect: false,
+      accidents: [],
+      flagged: [],
+      form: false,
+      currentPage: 1,
+      itemsPerPage: 9,
+      id: "",
+      date: "",
+      time: "",
+      borough: "",
+      zip_code: "",
+      latitude: "",
+      longitude: "",
+      number_of_persons_injured: "",
+      number_of_persons_killed: "",
+      notes: "",
+      year: 2018
+    };
+    this.handleYearChange = this.handleYearChange.bind(this);
+  }
+
+  handleYearChange(e) {
+    this.setState({ year: e.target.value });
+  }
 
   async componentDidMount() {
     try {
@@ -203,6 +213,7 @@ class App extends Component {
         changeRedirect={this.changeRedirect}
       />
     );
+    const statsPage = () => <Stats handleYearChange={this.handleYearChange} year={this.state.year} />;
     const MapComponent = () => <Map accidents={this.state.accidents} />;
     return (
       <Router>
@@ -212,6 +223,7 @@ class App extends Component {
               <Route exact path="/" render={HomeComponent} />
               <Route exact path="/Flagged" render={FlaggedItems} />
               <Route exact path="/Map" render={MapComponent} />
+              <Route exact path="/Stats" render={statsPage} />
             </Switch>
           ) : (
             <Redirect exact to={{ pathname: "/Flagged" }} render={FlaggedItems} />

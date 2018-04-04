@@ -15,6 +15,9 @@ class Navigation extends Component {
         <Link to="/Map">
           <Menu.Item>Map</Menu.Item>
         </Link>
+        <Link to="/Stats">
+          <Menu.Item>Stats</Menu.Item>
+        </Link>
       </Menu>
     );
   }
