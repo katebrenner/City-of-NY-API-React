@@ -27,7 +27,7 @@ class App extends Component {
       number_of_persons_injured: "",
       number_of_persons_killed: "",
       notes: "",
-      year: 2018
+      year: 2017
     };
     this.handleYearChange = this.handleYearChange.bind(this);
   }
