@@ -1,13 +1,10 @@
-body {
-  /* background-color: blue; */
-}
 .accident {
   border: 2px solid black;
   display: inline-block;
   box-shadow: 10px 10px 5px grey;
 }
 
-.grid {
+.homeGrid {
   display: grid;
   grid-template-columns: 1fr 1fr 1fr;
   grid-gap: 20px 5%;
@@ -114,4 +111,58 @@ body {
 .box6 {
   grid-column: 3/5;
   grid-row: 4/5;
+}
+
+.NYPD {
+  width: 80%;
+}
+
+@media (max-width: 1240px) {
+  .homeGrid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-gap: 20px 5%;
+    width: 80%;
+    margin: 0 auto;
+  }
+}
+
+@media (max-width: 400px) {
+  .box1 {
+    grid-column: 1/5;
+    grid-row: 1/2;
+  }
+
+  .box2 {
+    grid-column: 1/5;
+    grid-row: 2/3;
+  }
+
+  .box3 {
+    grid-column: 1/5;
+    grid-row: 3/4;
+  }
+
+  .box4 {
+    grid-column: 1/5;
+    grid-row: 4/5;
+  }
+
+  .box5 {
+    grid-column: 1/5;
+    grid-row: 5/6;
+  }
+
+  .box6 {
+    grid-column: 1/5;
+    grid-row: 6/7;
+  }
+
+  .homeGrid {
+    display: grid;
+    grid-template-columns: 1fr;
+    grid-gap: 20px 5%;
+    width: 80%;
+    margin: 0 auto;
+  }
 }

@@ -36,7 +36,7 @@ class Flagged extends Component {
         ) : (
           ""
         )}
-        <div className="grid">
+        <div className="homeGrid">
           {this.props.state.flagged.map((flagged, index) => {
             return (
               <Accident

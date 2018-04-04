@@ -25,7 +25,6 @@ class Stats extends Component {
         }`
       );
       this.setState({ totalInjuries: response.data[0].sum_number_of_persons_injured });
-      console.log(response.data[0].sum_number_of_persons_injured);
     } catch (error) {
       console.log("Error retrieving NYC data!");
       console.log(error);
@@ -37,7 +36,6 @@ class Stats extends Component {
         }`
       );
       this.setState({ totalFatalities: response.data[0].sum_number_of_persons_killed });
-      console.log(response.data[0].sum_number_of_persons_killed);
     } catch (error) {
       console.log("Error retrieving NYC data!");
       console.log(error);
@@ -50,7 +48,6 @@ class Stats extends Component {
         }`
       );
       this.setState({ totalAccidents: response.data[0].count });
-      console.log(response.data[0].count);
     } catch (error) {
       console.log("Error retrieving NYC data!");
       console.log(error);
@@ -63,7 +60,6 @@ class Stats extends Component {
         }&$group=month`
       );
       this.setState({ byTheMonth: response.data });
-      console.log(response.data);
     } catch (error) {
       console.log("Error retrieving NYC data!");
       console.log(error);
@@ -79,7 +75,6 @@ class Stats extends Component {
       );
       this.setState({ totalInjuries: response.data[0].sum_number_of_persons_injured });
     } catch (error) {
-      console.log("Error retrieving data!");
       console.log(error);
     }
     try {
@@ -90,7 +85,6 @@ class Stats extends Component {
       );
       this.setState({ totalFatalities: response.data[0].sum_number_of_persons_killed });
     } catch (error) {
-      console.log("Error retrieving data!");
       console.log(error);
     }
 
@@ -102,7 +96,6 @@ class Stats extends Component {
       );
       this.setState({ totalAccidents: response.data[0].count });
     } catch (error) {
-      console.log("Error retrieving data!!");
       console.log(error);
     }
 
@@ -114,7 +107,6 @@ class Stats extends Component {
       );
       this.setState({ byTheMonth: response.data });
     } catch (error) {
-      console.log("Error retrieving data!!");
       console.log(error);
     }
     try {
@@ -125,7 +117,6 @@ class Stats extends Component {
       );
       this.setState({ byTheBorough: response.data });
     } catch (error) {
-      console.log("Error retrieving NYC data!");
       console.log(error);
     }
   }
@@ -137,7 +128,7 @@ class Stats extends Component {
         <Header />
         <h1>Collision Stats</h1>
         <h1> Select Year:</h1>
-        <select id="years" onChange={this.props.handleYearChange}>
+        <select id="years" onChange={this.props.handleYearChange} value={this.props.year}>
           <option value="2018">2018</option>
           <option value="2017">2017</option>
           <option value="2016">2016</option>
@@ -160,20 +151,6 @@ class Stats extends Component {
           </div>
           <div className="box4">
             <h1>Accidents by the borough in {this.props.year}:</h1>
-            {/* {this.state.byTheBorough.map((data, index) => {
-              console.log(data.borough);
-              if (data.borough === undefined) {
-                data.borough = "NOT SPECIFIED";
-              }
-              return (
-                <div key={index}>
-                  <h3>
-                    {" "}
-                    {data.borough}: {data.count}
-                  </h3>
-                </div>
-              );
-            })} */}
             <Chart2 byTheBorough={this.state.byTheBorough} />
           </div>
           <div className="box5">

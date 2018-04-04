@@ -16,7 +16,7 @@ class App extends Component {
       flagged: [],
       form: false,
       currentPage: 1,
-      itemsPerPage: 9,
+      itemsPerPage: 6,
       id: "",
       date: "",
       time: "",
@@ -27,7 +27,7 @@ class App extends Component {
       number_of_persons_injured: "",
       number_of_persons_killed: "",
       notes: "",
-      year: 2017
+      year: "2017"
     };
     this.handleYearChange = this.handleYearChange.bind(this);
   }
@@ -40,7 +40,6 @@ class App extends Component {
     try {
       const response = await axios.get("https://data.cityofnewyork.us/resource/qiz3-axqb.json");
       this.setState({ accidents: response.data });
-      console.log(response.data);
     } catch (error) {
       console.log("Error retrieving NYC data!");
       console.log(error);

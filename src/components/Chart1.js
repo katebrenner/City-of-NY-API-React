@@ -1,16 +1,5 @@
 import React, { Component } from "react";
-import {
-  ResponsiveContainer,
-  BarChart,
-  Bar,
-  LineChart,
-  Line,
-  CartesianGrid,
-  XAxis,
-  YAxis,
-  Tooltip,
-  Legend
-} from "recharts";
+import { ResponsiveContainer, LineChart, Line, CartesianGrid, XAxis, YAxis, Tooltip, Legend } from "recharts";
 
 class Chart1 extends Component {
   state = {};
@@ -30,12 +19,9 @@ class Chart1 extends Component {
           .replace("7", "July")
           .replace("8", "Aug")
           .replace("9", "Sept"),
-        count: parseInt(data.count)
+        count: parseInt(data.count, 10)
       };
     });
-
-    console.log(data);
-
     return (
       <ResponsiveContainer width="100%" height={400}>
         <LineChart data={data} margin={{ top: 5, right: 20, bottom: 5, left: 0 }}>

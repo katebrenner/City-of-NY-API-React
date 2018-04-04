@@ -41,7 +41,7 @@ class HomeComponent extends Component {
         ) : (
           ""
         )}
-        <div className="grid">
+        <div className="homeGrid">
           {currentAccidents.map((response, index) => {
             return (
               <Accident
