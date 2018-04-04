@@ -1,7 +1,8 @@
 import React, { Component } from "react";
 import NavBar from "./NavBar";
 import Header from "./Header";
-import Charts from "./Charts";
+import Chart1 from "./Chart1";
+import Chart2 from "./Chart2";
 import axios from "axios";
 
 class Stats extends Component {
@@ -146,45 +147,20 @@ class Stats extends Component {
         </select>
         <div className="statsGrid">
           <div className="box1">
-            <h1>Total Number of Accidents in {this.props.year}</h1>
-            <h1>{this.state.totalAccidents}</h1>
+            <h1>Accidents by the month in {this.props.year}:</h1>
+            <Chart1 byTheMonth={this.state.byTheMonth} />
           </div>
           <div className="box2">
-            <h1>Accidents by the month in {this.props.year}:</h1>
-            {this.state.byTheMonth.map((data, index) => {
-              return (
-                <div key={index}>
-                  <h3>
-                    {" "}
-                    {data.month
-                      .replace("10", "Oct")
-                      .replace("11", "Nov")
-                      .replace("12", "Dec")
-                      .replace("1", "Jan")
-                      .replace("2", "Feb")
-                      .replace("3", "Mar")
-                      .replace("4", "April")
-                      .replace("5", "May")
-                      .replace("6", "June")
-                      .replace("7", "July")
-                      .replace("8", "Aug")
-                      .replace("9", "Sept")}: {data.count}
-                  </h3>
-                </div>
-              );
-            })}
+            <h1>Total Number of Accidents in {this.props.year}</h1>
+            <h1>{this.state.totalAccidents}</h1>
           </div>
           <div className="box3">
             <h1>Total Injuries in {this.props.year}</h1>
             <h1>{this.state.totalInjuries}</h1>
           </div>
           <div className="box4">
-            <h1>Total Fatalities in {this.props.year}</h1>
-            <h1>{this.state.totalFatalities}</h1>
-          </div>
-          <div className="box5">
             <h1>Accidents by the borough in {this.props.year}:</h1>
-            {this.state.byTheBorough.map((data, index) => {
+            {/* {this.state.byTheBorough.map((data, index) => {
               console.log(data.borough);
               if (data.borough === undefined) {
                 data.borough = "NOT SPECIFIED";
@@ -197,11 +173,15 @@ class Stats extends Component {
                   </h3>
                 </div>
               );
-            })}
+            })} */}
+            <Chart2 byTheBorough={this.state.byTheBorough} />
+          </div>
+          <div className="box5">
+            <h1>Total Fatalities in {this.props.year}</h1>
+            <h1>{this.state.totalFatalities}</h1>
           </div>
           <div className="box6">{this.state.year}</div>
         </div>
-        <Charts byTheBorough={this.state.byTheBorough} />
       </div>
     );
   }
