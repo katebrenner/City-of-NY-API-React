@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import NavBar from "./NavBar";
 import Header from "./Header";
+import Charts from "./Charts";
 import axios from "axios";
 
 class Stats extends Component {
@@ -200,6 +201,7 @@ class Stats extends Component {
           </div>
           <div className="box6">{this.state.year}</div>
         </div>
+        <Charts byTheBorough={this.state.byTheBorough} />
       </div>
     );
   }
