@@ -178,6 +178,7 @@ class App extends Component {
     };
     this.updateNote(newAccident, this.state.id);
     this.closeForm();
+    window.location.reload();
   };
   closeForm = () => {
     this.setState({

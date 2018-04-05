@@ -124,40 +124,45 @@ class Stats extends Component {
   render() {
     return (
       <div>
-        <NavBar />
         <Header />
-        <h1>Collision Stats</h1>
-        <h1> Select Year:</h1>
-        <select id="years" onChange={this.props.handleYearChange} value={this.props.year}>
-          <option value="2018">2018</option>
-          <option value="2017">2017</option>
-          <option value="2016">2016</option>
-          <option value="2015">2015</option>
-          <option value="2014">2014</option>
-          <option value="2013">2013</option>
-        </select>
+        <NavBar />
+        <div className="center">
+          <h1>Collision Stats</h1>
+          <h1> Select Year:</h1>
+          <select id="years" onChange={this.props.handleYearChange} value={this.props.year}>
+            <option value="2018">2018</option>
+            <option value="2017">2017</option>
+            <option value="2016">2016</option>
+            <option value="2015">2015</option>
+            <option value="2014">2014</option>
+            <option value="2013">2013</option>
+          </select>
+        </div>
+        <div className="space" />
         <div className="statsGrid">
           <div className="box1">
             <h1>Accidents by the month in {this.props.year}:</h1>
             <Chart1 byTheMonth={this.state.byTheMonth} />
           </div>
           <div className="box2">
-            <h1>Total Number of Accidents in {this.props.year}</h1>
-            <h1>{this.state.totalAccidents}</h1>
+            <h1 className="bigNum">{this.state.totalAccidents}</h1>
+            <p>Total Number of Accidents in {this.props.year}</p>
           </div>
-          <div className="box3">
-            <h1>Total Injuries in {this.props.year}</h1>
-            <h1>{this.state.totalInjuries}</h1>
-          </div>
+
           <div className="box4">
             <h1>Accidents by the borough in {this.props.year}:</h1>
             <Chart2 byTheBorough={this.state.byTheBorough} />
           </div>
           <div className="box5">
-            <h1>Total Fatalities in {this.props.year}</h1>
-            <h1>{this.state.totalFatalities}</h1>
+            <h1 className="bigNum">{this.state.totalFatalities}</h1>
+            <p>Total Fatalities in {this.props.year}</p>
           </div>
-          <div className="box6">{this.state.year}</div>
+          <div className="box6">
+            {this.state.year}
+
+            <h1 className="bigNum">{this.state.totalInjuries}</h1>
+            <p>Total Injuries in {this.props.year}</p>
+          </div>
         </div>
       </div>
     );

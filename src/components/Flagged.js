@@ -5,7 +5,10 @@ import AccidentForm from "./AccidentForm";
 import Header from "./Header";
 
 class Flagged extends Component {
-  state = {};
+  constructor(props) {
+    super(props);
+    this.state = {};
+  }
 
   render() {
     return (

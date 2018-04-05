@@ -5,10 +5,10 @@ class Accident extends Component {
     return (
       <div className="accident">
         <h1>{this.props.contributing_factor_vehicle_1}</h1>
-        <p>{this.props.date}</p>
-        <p>{this.props.on_street_name}</p>
-        <p>{this.props.latitude}</p>
-        <p>{this.props.longitude}</p>
+        <p>date: {this.props.date ? this.props.date : "not specifid"}</p>
+        <p>Street: {this.props.on_street_name ? this.props.on_street_name : "not specified"}</p>
+        <p>Lat: {this.props.latitude}</p>
+        <p>Lng: {this.props.longitude}</p>
         <p>injuries: {this.props.number_of_persons_injured}</p>
         <p>fatilites: {this.props.number_of_persons_killed}</p>
         {this.props.notes ? <p>notes: {this.props.notes}</p> : ""}
