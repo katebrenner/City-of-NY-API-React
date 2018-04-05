@@ -58,7 +58,7 @@ class App extends Component {
   flagAccident = async (newAccident, index) => {
     try {
       console.log("inside flagAccident");
-      const newFlaggedResponse = await axios.post("/accidents", newAccident);
+      const newFlaggedResponse = await axios.post(process.env.REACT_APP_HOST + "/accidents", newAccident);
       const updatedFlaggedList = [...this.state.flagged];
       updatedFlaggedList.push(newFlaggedResponse.data);
       this.setState({ flagged: updatedFlaggedList });
@@ -74,7 +74,7 @@ class App extends Component {
 
   removeFromFlag = async (accidentId, index) => {
     try {
-      await axios.delete(`/accidents/${accidentId}`);
+      await axios.delete(process.env.REACT_APP_HOST + `/accidents/${accidentId}`);
       const updatedFlagList = [...this.state.flagged];
       updatedFlagList.splice(index, 1);
       this.setState({ flagged: updatedFlagList });
@@ -86,7 +86,7 @@ class App extends Component {
 
   updateNote = async (newAccident, id) => {
     try {
-      await axios.patch(`/accidents/${id}`, newAccident);
+      await axios.patch(process.env.REACT_APP_HOST + `/accidents/${id}`, newAccident);
       console.log("after .patch statement");
     } catch (error) {
       console.log("Error updating item!");
