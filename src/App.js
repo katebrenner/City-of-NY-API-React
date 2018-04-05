@@ -45,7 +45,7 @@ class App extends Component {
       console.log(error);
     }
     try {
-      const response = await axios.get("/accidents");
+      const response = await axios.get(process.env.REACT_APP_HOST + "/accidents");
       this.setState({
         flagged: response.data
       });

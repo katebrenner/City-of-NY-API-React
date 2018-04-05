@@ -9,7 +9,7 @@ class Header extends Component {
           alt="NYPD"
           className="NYPD"
         />
-        <h1>Motor Vehicle Collisions</h1>
+        <h1 className="black">Motor Vehicle Collisions</h1>
       </div>
     );
   }

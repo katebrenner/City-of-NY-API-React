@@ -62,6 +62,7 @@ class HomeComponent extends Component {
             );
           })}
         </div>
+        <div className="space" />
         <PaginationController
           handlePageChange={this.props.handlePageChange}
           jumpPagination={this.props.jumpPagination}
