@@ -1,11 +1,11 @@
-import React, { Component } from "react";
-import { BrowserRouter as Router, Switch, Route, Redirect } from "react-router-dom";
-import axios from "axios";
-import Home from "./components/Home";
-import Flagged from "./components/Flagged";
-import Map from "./components/Map";
-import Stats from "./components/Stats";
-import "./App.css";
+import React, { Component } from 'react';
+import { BrowserRouter as Router, Switch, Route, Redirect } from 'react-router-dom';
+import axios from 'axios';
+import Home from './components/Home';
+import Flagged from './components/Flagged';
+import Map from './components/Map';
+import Stats from './components/Stats';
+import './App.css';
 
 class App extends Component {
   constructor() {
@@ -17,17 +17,18 @@ class App extends Component {
       form: false,
       currentPage: 1,
       itemsPerPage: 6,
-      id: "",
-      date: "",
-      time: "",
-      borough: "",
-      zip_code: "",
-      latitude: "",
-      longitude: "",
-      number_of_persons_injured: "",
-      number_of_persons_killed: "",
-      notes: "",
-      year: "2017"
+      id: '',
+      date: '',
+      time: '',
+      borough: '',
+      zip_code: '',
+      latitude: '',
+      longitude: '',
+      number_of_persons_injured: '',
+      number_of_persons_killed: '',
+      notes: '',
+      year: '2017',
+      loading: true,
     };
     this.handleYearChange = this.handleYearChange.bind(this);
   }
@@ -38,35 +39,35 @@ class App extends Component {
 
   async componentDidMount() {
     try {
-      const response = await axios.get("https://data.cityofnewyork.us/resource/qiz3-axqb.json");
-      this.setState({ accidents: response.data });
+      const response = await axios.get('https://data.cityofnewyork.us/resource/qiz3-axqb.json');
+      this.setState({ accidents: response.data, loading: false });
     } catch (error) {
-      console.log("Error retrieving NYC data!");
+      console.log('Error retrieving NYC data!');
       console.log(error);
     }
     try {
-      const response = await axios.get(process.env.REACT_APP_HOST + "/accidents");
+      const response = await axios.get(process.env.REACT_APP_HOST + '/accidents');
       this.setState({
-        flagged: response.data
+        flagged: response.data,
       });
     } catch (error) {
-      console.log("Error retrieving flagged accidents!");
+      console.log('Error retrieving flagged accidents!');
       console.log(error);
     }
   }
 
   flagAccident = async (newAccident, index) => {
     try {
-      console.log("inside flagAccident");
-      const newFlaggedResponse = await axios.post(process.env.REACT_APP_HOST + "/accidents", newAccident);
+      console.log('inside flagAccident');
+      const newFlaggedResponse = await axios.post(process.env.REACT_APP_HOST + '/accidents', newAccident);
       const updatedFlaggedList = [...this.state.flagged];
       updatedFlaggedList.push(newFlaggedResponse.data);
       this.setState({ flagged: updatedFlaggedList });
-      console.log("Newaccident", newAccident);
-      console.log("updatedFlaggedList", updatedFlaggedList);
+      console.log('Newaccident', newAccident);
+      console.log('updatedFlaggedList', updatedFlaggedList);
       this.setState({ redirect: true });
     } catch (error) {
-      console.log("Error posting an accident");
+      console.log('Error posting an accident');
       console.log(error);
     }
     this.setState({ redirect: false, form: false });
@@ -87,23 +88,23 @@ class App extends Component {
   updateNote = async (newAccident, id) => {
     try {
       await axios.patch(process.env.REACT_APP_HOST + `/accidents/${id}`, newAccident);
-      console.log("after .patch statement");
+      console.log('after .patch statement');
     } catch (error) {
-      console.log("Error updating item!");
+      console.log('Error updating item!');
       console.log(error);
     }
   };
 
   handlePageChange = event => {
-    if (event.target.value === "next") {
+    if (event.target.value === 'next') {
       this.setState({ currentPage: this.state.currentPage + 1 });
-    } else if (event.target.value === "last") {
+    } else if (event.target.value === 'last') {
       this.setState({ currentPage: this.state.currentPage - 1 });
     }
   };
   jumpPagination = value => {
     this.setState({
-      currentPage: value
+      currentPage: value,
     });
   };
   confirmAccident = object => {
@@ -116,9 +117,9 @@ class App extends Component {
       latitude: object.latitude,
       longitude: object.longitude,
       number_of_persons_injured: object.number_of_persons_injured,
-      number_of_persons_killed: object.number_of_persons_killed
+      number_of_persons_killed: object.number_of_persons_killed,
     });
-    console.log("inside flag accdient" + object.date);
+    console.log('inside flag accdient' + object.date);
   };
 
   confirmAccidentForUpdate = object => {
@@ -132,20 +133,20 @@ class App extends Component {
       latitude: object.latitude,
       longitude: object.longitude,
       number_of_persons_injured: object.number_of_persons_injured,
-      number_of_persons_killed: object.number_of_persons_killed
+      number_of_persons_killed: object.number_of_persons_killed,
     });
     console.log(object.id);
   };
 
   handleChange = event => {
     this.setState({
-      notes: event.target.value
+      notes: event.target.value,
     });
     console.log(this.state.notes);
   };
   handleSubmit = event => {
     event.preventDefault();
-    console.log("inside handlesubmit");
+    console.log('inside handlesubmit');
     const newAccident = {
       id: this.state.id,
       date: this.state.date,
@@ -156,14 +157,14 @@ class App extends Component {
       longitude: this.state.longitude,
       number_of_persons_injured: this.state.number_of_persons_injured,
       number_of_persons_killed: this.state.number_of_persons_killed,
-      notes: this.state.notes
+      notes: this.state.notes,
     };
     this.flagAccident(newAccident);
   };
 
   handleUpdate = event => {
     event.preventDefault();
-    console.log("inside handleUpdate");
+    console.log('inside handleUpdate');
     const newAccident = {
       id: this.state.id,
       date: this.state.date,
@@ -174,7 +175,7 @@ class App extends Component {
       longitude: this.state.longitude,
       number_of_persons_injured: this.state.number_of_persons_injured,
       number_of_persons_killed: this.state.number_of_persons_killed,
-      notes: this.state.notes
+      notes: this.state.notes,
     };
     this.updateNote(newAccident, this.state.id);
     this.closeForm();
@@ -182,7 +183,7 @@ class App extends Component {
   };
   closeForm = () => {
     this.setState({
-      form: false
+      form: false,
     });
   };
   changeRedirect = () => {
@@ -226,7 +227,7 @@ class App extends Component {
               <Route exact path="/Stats" render={statsPage} />
             </Switch>
           ) : (
-            <Redirect exact to={{ pathname: "/Flagged" }} render={FlaggedItems} />
+            <Redirect exact to={{ pathname: '/Flagged' }} render={FlaggedItems} />
           )}
         </div>
       </Router>
