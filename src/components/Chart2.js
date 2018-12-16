@@ -1,11 +1,11 @@
-import React, { Component } from "react";
-import { ResponsiveContainer, BarChart, Bar, CartesianGrid, XAxis, YAxis, Tooltip, Legend } from "recharts";
+import React, { Component } from 'react';
+import { ResponsiveContainer, BarChart, Bar, CartesianGrid, XAxis, YAxis, Tooltip, Legend } from 'recharts';
 
 class Chart2 extends Component {
   render() {
     const data = this.props.byTheBorough.map(data => {
       if (data.borough === undefined) {
-        data.borough = "Not Specified";
+        data.borough = 'Not Specified';
       }
       return { name: data.borough, count: parseInt(data.count, 10) };
     });
